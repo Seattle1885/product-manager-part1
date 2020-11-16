@@ -4,7 +4,7 @@ const Product = require('../models/product.model'),
 module.exports = {
     index: (req, res) => {
         Product.find()
-            .then(data => res.json({results:data})) // results is the key and data is an array value and we a
+            .then(data => res.json({results:data})) // results is the key and data is an array value
             .catch(err => res.json(err.errors))
     },
     create: (req, res) => { 

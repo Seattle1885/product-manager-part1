@@ -13,6 +13,7 @@ const Main = props => {
 
     return (
         <>
+        <div><Link to="/create">Create A Product</Link></div>
         <table className="table table-hover">
             <thead className="thead-dark">
                 <tr>
