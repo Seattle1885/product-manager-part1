@@ -1,4 +1,3 @@
-const { json } = require('express');
 const Product = require('../models/product.model'),
     mongoose = require('mongoose');
 
