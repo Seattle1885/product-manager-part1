@@ -1,15 +1,29 @@
 import {useState, useEffect} from 'react';
 import Axios from 'axios';
-import {Link} from '@reach/router';
+import {Link, navigate} from '@reach/router';
 
 const Main = props => {
 
     const [product, setProduct] = useState([]);
+    const [remove, setRemove] = useState(false);
+
     useEffect(() => {
         Axios.get('http://localhost:8000/api/product')
         .then(res => setProduct(res.data.results))
         .catch(err => console.log(err.errors))
-    },[])
+    },[remove])
+
+    const ProductDelete = (id, title) => {
+        Axios.delete(`http://localhost:8000/api/delete/${id}`)
+            .then(res => {
+                if(res.data.results){
+                    setRemove(!remove);
+                    console.log("Product removed")
+                    .then(res => navigate('/'))
+                }
+            })
+                .catch(err => console.log(err))
+    }
 
     return (
         <>
@@ -29,8 +43,11 @@ const Main = props => {
                     <td>{p.title}</td>
                     <td>{p.price}</td>
                     <td>{p.description}</td>
-                    <td><Link to="/show">Details </Link>
-                    <Link to="/edit">Edit</Link></td>
+                    <td><Link to={`/show/${p._id}`}>Details </Link>
+                    <Link to={`/edit/${p._id}`}>Edit </Link>
+                    <button
+                        onClick={()=> ProductDelete(p._id, p.title)}
+                        className="btn btn-danger">Delete</button></td>
                 </tr>
                 )
                 }

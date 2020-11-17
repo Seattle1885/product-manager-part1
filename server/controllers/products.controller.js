@@ -1,10 +1,11 @@
+
 const Product = require('../models/product.model'),
     mongoose = require('mongoose');
 
 module.exports = {
     index: (req, res) => {
         Product.find()
-            .then(data => res.json({results:data})) // results is the key and data is an array value
+            .then(data => res.json({results:data})) // results is the key and data is an array value and we a
             .catch(err => res.json(err.errors))
     },
     create: (req, res) => { 
